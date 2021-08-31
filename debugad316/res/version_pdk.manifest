@@ -1,0 +1,10 @@
+{
+	"packageUrl": "http://mjqres1.52bjd.com/qpupdate/pdk/",
+	"remoteManifestUrl": "http://mjqres.52bjd.com:8080/qpupdate/pdk/project.manifest",
+	"remoteVersionUrl": "http://mjqres.52bjd.com:8080/qpupdate/pdk/version.manifest",
+	"version" : "1.0.0",
+	"groupVersions":{
+		"1" : "1.0.0"
+	},
+	"engineVersion" : "3.1"
+}

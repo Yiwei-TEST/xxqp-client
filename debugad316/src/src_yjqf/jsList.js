@@ -1,0 +1,22 @@
+//
+var jsList = [
+    "src/src_yjqf/QFRoomModel.js",
+    "src/src_yjqf/QFSeePlayBackLayer.js",
+    "src/src_yjqf/QFAI.js",
+    "src/src_yjqf/QFCard.js",
+    "src/src_yjqf/QFSmallCard.js",
+    "src/src_yjqf/QFBigCard.js",
+    "src/src_yjqf/QFBigResultPop.js",
+    "src/src_yjqf/QFCardDelegate.js",
+    "src/src_yjqf/QFCardNote.js",
+    "src/src_yjqf/QFCardPlayBack.js",
+    "src/src_yjqf/QFCardPlayer.js",
+    "src/src_yjqf/QFExfunc.js",
+    "src/src_yjqf/QFJetton.js",
+    "src/src_yjqf/QFRoom.js",
+    "src/src_yjqf/QFRoomEffects.js",
+    "src/src_yjqf/QFRoomSetPop.js",
+    "src/src_yjqf/QFRoomSound.js",
+    "src/src_yjqf/QFSmallResultPop.js",
+    "src/src_yjqf/QFCutCardPop.js",
+]

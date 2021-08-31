@@ -1,0 +1,10 @@
+{
+    "packageUrl":"http://hotcdn.xn0753.com.cn/qlmj/",
+    "remoteManifestUrl":"http://hotcdn.xn0753.com.cn/qlmj/project.manifest",
+    "remoteVersionUrl":"http://hotcdn.xn0753.com.cn/qlmj/version.manifest",
+    "version":"1.0.0",
+    "groupVersions":{
+        "1":"1.0.71"
+    },
+    "engineVersion":"3.1"
+}
