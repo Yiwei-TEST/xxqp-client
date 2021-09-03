@@ -1,7 +1,7 @@
 {
-    "packageUrl":"http://hotcdn.gfjijin.cn/qlmj/",
-    "remoteManifestUrl":"http://hotcdn.gfjijin.cn/qlmj/project.manifest",
-    "remoteVersionUrl":"http://hotcdn.gfjijin.cn/qlmj/version.manifest",
+    "packageUrl":"http://hotcdn.vdseg.sh.cn/xxphz/",
+    "remoteManifestUrl":"http://hotcdn.vdseg.sh.cn/xxphz/project.manifest",
+    "remoteVersionUrl":"http://hotcdn.vdseg.sh.cn/xxphz/version.manifest",
     "version":"1.0.0",
     "groupVersions":{
         "1":"1.0.71"

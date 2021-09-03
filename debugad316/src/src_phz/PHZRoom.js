@@ -142,18 +142,18 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             ||  PHZRoomModel.wanfa==GameTypeEunmZP.CDPHZ
             || PHZRoomModel.wanfa==GameTypeEunmZP.HHHGW
             || PHZRoomModel.wanfa==GameTypeEunmZP.AXWMQ){
-            this.Label_info.setAnchorPoint(0,1);
-            this.Label_info.setPosition(this.Label_info.x - 185,this.Label_info.y + 15);
-            this.Label_info.ignoreContentAdaptWithSize(false);
-            this.Label_info.setSize(500, 200);
+            // this.Label_info.setAnchorPoint(0,1);
+            // this.Label_info.setPosition(this.Label_info.x - 185,this.Label_info.y + 15);
+            // this.Label_info.ignoreContentAdaptWithSize(false);
+            // this.Label_info.setSize(500, 200);
         }else if((PHZRoomModel.wanfa==GameTypeEunmZP.LDS && PHZRoomModel.intParams[7] == 4)
             || (PHZRoomModel.wanfa==GameTypeEunmZP.JHSWZ && PHZRoomModel.intParams[7] == 4)
             || (PHZRoomModel.wanfa==GameTypeEunmZP.SYBP && PHZRoomModel.intParams[7] == 4)
             || (PHZRoomModel.wanfa==GameTypeEunmZP.GLZP && PHZRoomModel.intParams[7] == 4)){
-            this.Label_info.setAnchorPoint(0,1);
-            this.Label_info.setPosition(this.Label_info.x,this.Label_info.y + 15);
-            this.Label_info.ignoreContentAdaptWithSize(false);
-            this.Label_info.setSize(500, 200);
+            // this.Label_info.setAnchorPoint(0,1);
+            // this.Label_info.setPosition(this.Label_info.x,this.Label_info.y + 15);
+            // this.Label_info.ignoreContentAdaptWithSize(false);
+            // this.Label_info.setSize(500, 200);
         }
 
         if (PHZRoomModel.is4Ren()) {
@@ -3802,7 +3802,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
      */
     onLetOutPai:function(message){
         this.lastLetOutMsg = message;
-         //cc.log("=============onLetOutPai=============",JSON.stringify(message));
+         cc.log("=============onLetOutPai=============",JSON.stringify(message));
         // cc.log("=============this.kehushizhong=============",this.kehushizhong);0
         this._countDown = PHZRoomModel.getNewTuoguanTime();
         var userId = message.userId;

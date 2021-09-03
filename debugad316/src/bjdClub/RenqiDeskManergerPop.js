@@ -132,7 +132,7 @@ var RenqiDeskManergerPop = BasePopup.extend({
             sessCode: PlayerModel.sessCode
         }, function (data) {
             if (data) {
-                cc.log("data =",JSON.stringify(data));
+                // cc.log("data =",JSON.stringify(data));
                 if(data.list.length >0){
                     self.pageNo = data.pageNo;
                     self.lbDataPage.setString(self.pageNo);

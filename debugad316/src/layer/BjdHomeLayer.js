@@ -43,7 +43,7 @@ var BjdHomeLayer = BaseLayer.extend({
         UITools.addClickEvent(this.getWidget("btn_invite") , this , this.onClickInviteBtn);
         UITools.addClickEvent(this.getWidget("btn_kf") , this , this.onClickKfBtn);
         UITools.addClickEvent(this.getWidget("btn_zhanji") , this , this.onClickZhanjiBtn);
-        this.getWidget("btn_kf").visible = true;
+        this.getWidget("btn_kf").visible = false;
         UITools.addClickEvent(this.getWidget("btn_gg") , this , this.onClickGgBtn);
         UITools.addClickEvent(this.getWidget("btn_qd") , this , this.onClickQdBtn);
         UITools.addClickEvent(this.getWidget("btn_set") , this , this.onClickSetBtn);

@@ -133,9 +133,9 @@ var PyqRecordPop = BasePopup.extend({
         this.clubDayType = 1;
 
         this.isSelecWzq = false;
-        this.btn_wzq = this.getWidget("btn_wzq");
-        this.btn_wzq.setBright(false);
-        UITools.addClickEvent(this.btn_wzq , this , this.onClickWzqBtn);
+        // this.btn_wzq = this.getWidget("btn_wzq");
+        // this.btn_wzq.setBright(false);
+        // UITools.addClickEvent(this.btn_wzq , this , this.onClickWzqBtn);
     },
 
     onClickSelectDay:function(sender){
@@ -262,7 +262,7 @@ var PyqRecordPop = BasePopup.extend({
 
     onClickWzqBtn:function(){
         this.isSelecWzq = !this.isSelecWzq;
-        this.btn_wzq.setBright(this.isSelecWzq);
+        // this.btn_wzq.setBright(this.isSelecWzq);
 
         this.clubPage = 1;
         this.getClubRecordData(1,this.inputRoomIdBox.getString(),this.inputUserIdBox.getString());

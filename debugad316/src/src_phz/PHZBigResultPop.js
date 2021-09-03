@@ -154,11 +154,9 @@ var PHZBigResultPop = BasePopup.extend({
             if (PHZRoomModel.intParams[34] != 0){
                 ccui.helper.seekWidgetByName(widget, "Label_47_0_4").visible = false;
                 ccui.helper.seekWidgetByName(widget, "l5").visible = false;
-                ccui.helper.seekWidgetByName(widget, "Image_115_3").visible = false; 
                 if (user.strExt[12] && user.strExt[12] != 0){
                     ccui.helper.seekWidgetByName(widget,"Image_dn").visible=true;
                     ccui.helper.seekWidgetByName(widget, "Label_47_0_4").visible = true;
-                    ccui.helper.seekWidgetByName(widget, "Image_115_3").visible = true;
                     ccui.helper.seekWidgetByName(widget, "l5").visible = true;
                 }
             }

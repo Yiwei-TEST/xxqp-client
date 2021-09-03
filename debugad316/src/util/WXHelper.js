@@ -5,7 +5,7 @@
  * 微信登录处理类
  */
 var WXHelper={
-    appId:"wx17497c5aaf66243e",
+    appId:"wxdbcc74e79f1e991f",
     cheakAutoLoginBack:null,
     cleanCache:function(){
         var userInfo = cc.sys.localStorage;

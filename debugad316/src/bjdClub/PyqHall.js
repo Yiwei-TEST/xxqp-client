@@ -307,6 +307,17 @@ var PyqHall = BasePopup.extend({
 
         UITools.addClickEvent(this.btn_yaoqing,this,this.onClickYaoQing);
 
+
+        this.Image_wfbtn = this.getWidget("Image_wfbtn");
+        this.Image_wfbtn.visible = false;
+        this.btn_wanfaxuanze = this.getWidget("btn_wanfaxuanze");
+        var self = this;
+        UITools.addClickEvent(this.btn_wanfaxuanze,this,function () {
+            self.Image_wfbtn.visible = !self.Image_wfbtn.isVisible();
+        });
+
+
+
         this.zuoziType = cc.sys.localStorage.getItem("zuozitype") || 1;
 
         this.btn_suo = this.getWidget("btn_suo");
@@ -1523,26 +1534,32 @@ var PyqHall = BasePopup.extend({
     },
 
     updateTableInGameNum:function () {
-
-        var label_tableName = ccui.helper.seekWidgetByName(this.btn_item, "label_tableName");
-        // cc.log("this.tableInGameNum =",this.tableInGameNum);
-        if(this.tableInGameNum >= 0){
-            label_tableName.visible = true;
-            label_tableName.setString("(" + this.tableInGameNum + "桌)");
-        }
+        // var label_tableName = ccui.helper.seekWidgetByName(this.btn_item, "label_tableName");
+        // // cc.log("this.tableInGameNum =",this.tableInGameNum);
+        // if(this.tableInGameNum >= 0){
+        //     label_tableName.visible = true;
+        //     label_tableName.setString("(" + this.tableInGameNum + "桌)");
+        // }
     },
     showWanfaBtnList:function () {
+        cc.log("this.allBagsData",this.allBagsData.length);
         var btn_list_view = this.getWidget("wanfabtn_view");
-
-        btn_list_view.removeAllItems();
+        btn_list_view.setDirection(ccui.ScrollView.DIR_VERTICAL);
+        btn_list_view.setTouchEnabled(true);
+        btn_list_view.setBounceEnabled(true);
+        btn_list_view.setVisible(true);
+        // btn_list_view.removeAllItems();
+        if(this.allBagsData.length > 12){
+            btn_list_view.setInnerContainerSize(cc.size(875, ((this.allBagsData.length / 3)+1) * 120)); 
+        }
         this.filterItemArr = [];
         var btn_item = this.btn_item =this.getWidget("button_allgames");
-        var label_tableName = this.getWidget("label_tableName");
+        // var label_tableName = this.getWidget("label_tableName");
         // cc.log("this.tableInGameNum =",this.tableInGameNum);
-        if(this.tableInGameNum >= 0){
-            label_tableName.visible = true;
-            label_tableName.setString("(" + this.tableInGameNum + "桌)");
-        }
+        // if(this.tableInGameNum >= 0){
+        //     label_tableName.visible = true;
+        //     label_tableName.setString("(" + this.tableInGameNum + "桌)");
+        // }
         btn_item.filterData = 0;
         // btn_item.setVisible(false);
         UITools.addClickEvent(btn_item, this, this.onClickWanfaBtn);
@@ -1553,16 +1570,20 @@ var PyqHall = BasePopup.extend({
             var item = btn_item.clone();
             item.setVisible(true);
             this.filterItemArr.push(item);
-            btn_list_view.pushBackCustomItem(item);
+            item.x = 130 + ((i)%3) * (275 + 30);
+            item.y = btn_list_view.getInnerContainerSize().height - 70 - (Math.floor((i)/3) *120);
+
+            // btn_list_view.pushBackCustomItem(item);
+            btn_list_view.addChild(item);
             var label_bag_name = ccui.helper.seekWidgetByName(item, "label_tableName");
             var label_wanfa = ccui.helper.seekWidgetByName(item, "label_gameName");
             label_bag_name.visible = true;
             label_wanfa.visible = true;
             // if (i == 0) {
-            //     label_bag_name.visible = label_wanfa.visible = false;
-            //     var img = "res/ui/bjdmj/popup/pyq/btn_allgames.png";
-            //     item.loadTextures(img, img, "");
-            //     item.filterData = 0;
+                // label_bag_name.visible = label_wanfa.visible = false;
+                // var img = "res/ui/bjdmj/popup/pyq/btn_allgames.png";
+                // item.loadTextures(img, img, "");
+                // item.filterData = 0;
             // } else {
 
                 label_bag_name.setString(this.allBagsData[i].groupName);
@@ -1574,14 +1595,14 @@ var PyqHall = BasePopup.extend({
                 var img = "res/ui/bjdmj/popup/pyq/btn_game1.png";
                 item.loadTextures(img, img, "");
             // }
-            if (this.filtModeId == item.filterData && i > 0) {
+            if (this.filtModeId == item.filterData) {
                 showIdx = i;
                 var img = "res/ui/bjdmj/popup/pyq/btn_game2.png";
                 item.loadTextures(img, img, "");
             }
         }
 
-        btn_list_view.jumpToItem(showIdx, cc.p(0.5, 0.5), cc.p(0.5, 0.5));
+        // btn_list_view.jumpToItem(showIdx, cc.p(0.5, 0.5), cc.p(0.5, 0.5));
     },
 
     onClickWanfaBtn: function (sender) {
@@ -1601,13 +1622,13 @@ var PyqHall = BasePopup.extend({
             var label_bag_name = ccui.helper.seekWidgetByName(this.filterItemArr[i], "label_tableName");
             var label_wanfa = ccui.helper.seekWidgetByName(this.filterItemArr[i], "label_gameName");
             if (this.filtModeId == this.filterItemArr[i].filterData) {
-                label_bag_name.setColor(cc.color("#6b2600"));
-                label_wanfa.setColor(cc.color("#e64100"));
+                label_bag_name.setColor(cc.color("#fff4ce"));
+                label_wanfa.setColor(cc.color("#b95512"));
                 var img = "res/ui/bjdmj/popup/pyq/btn_game2.png";
                 this.filterItemArr[i].loadTextures(img, img, "");
             } else {
-                label_bag_name.setColor(cc.color("#fff475"));
-                label_wanfa.setColor(cc.color("#fefefe"));
+                label_bag_name.setColor(cc.color("#ffebc5"));
+                label_wanfa.setColor(cc.color("#84441a"));
                 var img = "res/ui/bjdmj/popup/pyq/btn_game1.png";
                 this.filterItemArr[i].loadTextures(img, img, "");
             }
@@ -1925,7 +1946,7 @@ var PyqHall = BasePopup.extend({
             //}
         }
 
-        this.updateTableInGameNum();
+        // this.updateTableInGameNum();
     },
 
     setTableItemData:function(item,data){
@@ -1945,27 +1966,24 @@ var PyqHall = BasePopup.extend({
         var zhuoBu = ccui.helper.seekWidgetByName(item,"zhuoBu");
         zhuoBu.loadTexture(imgNameArr[1]);
 
-        var offsetY = 54;
-        var offsetX = 5;
-        if(data.maxCount == 4){
-            offsetX = 2;
-            offsetY = 45;
-        } else if (data.maxCount == 3){
-            offsetX = 0;
-            offsetY = 19;
-        } else if (data.maxCount == 2) {
-            offsetX = 1;
-            offsetY = 46;
-        }
-        if(imgNameArr[2] == 2){
-            offsetY = 58;
-            if(data.maxCount == 2)offsetX = 7;
-            if(data.maxCount == 4)offsetX = 3;
-        }
-        if(imgNameArr[2] == 3){
-            offsetY = 48;
-            offsetX = -3;
-        }
+        var offsetY = 74;
+        var offsetX = 9;
+        // if(data.maxCount == 4){
+        //     offsetX = 2;
+        //     offsetY = 45;
+        // } else if (data.maxCount == 3){
+        //     offsetX = 0;
+        //     offsetY = 19;
+        // } else if (data.maxCount == 2) {
+        //     offsetX = 1;
+        //     offsetY = 46;
+        // }
+        // if(imgNameArr[2] == 2){
+        //     offsetY = 58;
+        //     if(data.maxCount == 2)offsetX = 7;
+        //     if(data.maxCount == 4)offsetX = 3;
+        // }
+
         zhuoBu.setPosition(tableBg.width/2 + offsetX,tableBg.height/2 + offsetY);
 
         var label_table_name = ccui.helper.seekWidgetByName(item,"table_name");
@@ -2211,9 +2229,6 @@ var PyqHall = BasePopup.extend({
        
         var zhuoImg = "res/ui/bjdmj/popup/pyq/zhuobu/zhuo_" + zhuoType + "_" + num + ".png";
         var buImg = "res/ui/bjdmj/popup/pyq/zhuobu/bu_" + zhuoType + "_" + buType + ".png";
-        if (zhuoType == 1 && num == 3) {
-            buImg = "res/ui/bjdmj/popup/pyq/zhuobu/bu_" + zhuoType + "_" + num + "_"+ buType + ".png";
-        }
         return [zhuoImg,buImg,zhuoType];
     },
 

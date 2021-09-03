@@ -193,8 +193,8 @@ var LoginLayer = BaseLayer.extend({
 
     setSelectServer:function(){
         var configArr = [
-            { name: "本地服", url: "http://192.168.0.107:8090/guajiLogin/", host: "192.168.0.107", port: "8120" },
-            { name: "测试环境", url: "http://8.140.155.180:9090/pdklogin/", host: "8.140.155.180", port: "9001,9002" },
+            { name: "本地服", url: "http://192.168.0.107:8095/guajiLogin/", host: "192.168.0.107", port: "8140" },
+            { name: "测试环境", url: "http://119.23.110.5:9090/pdklogin/", host: "119.23.110.5", port: "9001,9002" },
             { name: "现网环境", url: "http://login.xupizea.cn/pdklogin/", host: "login.xupizea.cn", port: "9001,9002,9003,9004" },
         ]
         this.selectBtnArr = [];

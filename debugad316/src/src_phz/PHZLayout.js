@@ -301,8 +301,7 @@ var PHZLayout = cc.Class.extend({
                     }
                 }
             }
-            cc.log("this.data3 =", JSON.stringify(this.data3));
-
+            // cc.log("this.data3 =", JSON.stringify(this.data3));
         }
     },
     /**
@@ -560,7 +559,7 @@ var PHZLayout = cc.Class.extend({
      * @param data {Array.<PHZVo>}
      */
     refreshP3:function(data,isQiAni){
-        cc.log("data =", JSON.stringify(data));
+        // cc.log("data =", JSON.stringify(data));
         this.data3 = data;
         var g = 56;
         

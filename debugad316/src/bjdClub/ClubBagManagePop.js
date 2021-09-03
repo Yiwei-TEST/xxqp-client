@@ -295,6 +295,7 @@ var ClubBagManagePop = BasePopup.extend({
             var renqiDeskBtn = ccui.Button("res/ui/bjdmj/popup/pyq/wanfa/btn_renqiDesk.png");
             renqiDeskBtn.setPosition(Button_add.x - 440, Button_add.y);
             Button_add.getParent().addChild(renqiDeskBtn, 1);
+            renqiDeskBtn.visible = false;
             UITools.addClickEvent(renqiDeskBtn, this, function () {
                 var pop = new RenqiDeskManergerPop(this.data);
                 PopupManager.addPopup(pop);
