@@ -15,7 +15,7 @@ var AudioManager = {
 			this.stop_bg();
 		}else {
 			if(!cc.audioEngine.isMusicPlaying() || this._bgMusic != bgMusic) {
-				// this.play_bg("res/audio/bgm" + bgMusic + ".mp3", true);
+				this.play_bg("res/audio/bgm" + bgMusic + ".mp3", true);
 				this._bgMusic = bgMusic;
 			}
 			this.setBgVolume(music / 100);
