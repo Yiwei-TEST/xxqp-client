@@ -9,7 +9,7 @@ var SocketErrorModel = {
         }
         this._socketList = {
             login:{
-                ips:"http://login.xupizea.cn/,",
+                ips:"http://login.sheyt.cn/,",
                 ports:""
             },
             game:{
