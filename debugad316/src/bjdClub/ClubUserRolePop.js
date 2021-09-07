@@ -81,10 +81,17 @@ var ClubUserRolePop = BasePopup.extend({
             roleArr.push(-4);
         }
 
+        if(myRole == 10000 && this.curUserRole == 10000){
+            roleArr.push(-4);
+        }
+
         if(myRole == 10000 && ClickClubModel.promoterLevel == 2 && ClickClubModel.promoterLevel < this.tempData.promoterLevel){
             //一级合伙人有权限禁止其下级玩家的是否进入亲友圈游戏
             roleArr.push(-5);
         }
+        
+        cc.log("this.curUserRole =",this.curUserRole);
+        cc.log("roleArr =",JSON.stringify(roleArr));
 
         //对普通成员没有降为成员
         for(var i = roleArr.length-1;i >= 0; i--) {
@@ -108,6 +115,7 @@ var ClubUserRolePop = BasePopup.extend({
             }
         }
 
+        cc.log("roleArr =",JSON.stringify(roleArr));
         //让可操作的数组转化为文字 并去掉自己
         var roleNum = 0;
         for(var i = 0;i < roleArr.length; ++i) {

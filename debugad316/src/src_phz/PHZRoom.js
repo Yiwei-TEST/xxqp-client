@@ -3568,7 +3568,7 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             var btnDatas = [];
             var textureMap = {
                 0:{t:"res/res_phz/act_button/hu.png",v:1},2:{t:"res/res_phz/act_button/wai.png",v:3},3:{t:"res/res_phz/act_button/liu.png",v:4},1:{t:"res/res_phz/act_button/peng.png",v:2},
-                4:{t:"res/res_phz/act_button/chi.png",v:6},5:{t:"res/res_phz/act_button/pao.png",v:7}};
+                4:{t:"res/res_phz/act_button/chi.png",v:6}};
 
             if(PHZRoomModel.wanfa == GameTypeEunmZP.LDS || PHZRoomModel.wanfa == GameTypeEunmZP.YZCHZ || PHZRoomModel.wanfa == GameTypeEunmZP.JHSWZ){
                 textureMap[7] = {t:"res/res_phz/wangdiao.png",v:15};

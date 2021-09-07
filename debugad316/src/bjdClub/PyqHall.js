@@ -1298,9 +1298,9 @@ var PyqHall = BasePopup.extend({
         if(ClickClubModel.isClubCreater()){
             this.btn_suo.setVisible(false);
         }else{
-            this.btn_suo.setVisible(true);
+            this.btn_suo.setVisible(false);
             this.btn_suo.setBright(!ClickClubModel.getCreditLock());
-            this.btn_suo.visible = !ClickClubModel.getClubIsGold()
+            // this.btn_suo.visible = !ClickClubModel.getClubIsGold()
         }
 
         if(ClickClubModel.isClubNormalMember()){
@@ -1368,7 +1368,8 @@ var PyqHall = BasePopup.extend({
 
     updateRoomInfo:function(data){
         this.btn_match_set.visible = !ClickClubModel.getClubIsGold()
-        this.btn_suo.visible = !ClickClubModel.getClubIsGold()
+        // this.btn_suo.visible = !ClickClubModel.getClubIsGold()
+        this.btn_suo.visible = false;
         this.getWidget("icon_bisai").visible = !ClickClubModel.getClubIsGold()
         var pyqInfoBg = this.getWidget("pyq_info_bg");
         var pyqName = ccui.helper.seekWidgetByName(pyqInfoBg,"pyq_name");
@@ -1854,6 +1855,103 @@ var PyqHall = BasePopup.extend({
 
     },
 
+    updateTableList1:function(data){
+        // cc.log("============updateTableList==============" + data.length);
+        cc.log("============updateTableList==============", JSON.stringify(data));
+        this.tableInGameNum = 0;
+        var showData = [];
+        for(var i = 0;i<data.length;++i){
+            var isShow = true;
+            if(this.isHideStartTable){//是否隐藏开始桌
+                isShow = data[i].notStart;
+            }
+            if(ClickClubModel.getBagIsHide(data[i].configId)){
+                isShow = false;
+            }
+            if(isShow){
+                showData.push(data[i]);
+            }
+            // cc.log("isShow =", isShow);
+        }
+        this.dataHandler.handleServerData(showData);
+
+        this.tableArr = this.tableArr || [this.tableItem];
+
+        this.unUseItemArr = [];
+        this.tableIdCfg = {};
+        for(var i = 0;i<this.tableArr.length;++i){
+            var item = this.tableArr[i];
+            item.setVisible(false);
+            if((item.tempData && this.dataHandler.getItemData(item.tempData.tableId))){
+                this.tableIdCfg[item.tempData.tableId] = item;
+            }else{
+                this.unUseItemArr.push(item);
+            }
+        }
+        var page = Math.ceil((showData.length+1) / 8);
+        var contentH = this.tableScroll.height;
+        if (page != 0){
+            var contentH = this.tableScroll.height * page;
+        }
+        // this.itemCreateNew.y = contentH - 240;
+        var showNum = 0;
+        if(ClickClubModel.isClubCreaterOrLeader()){
+            showNum = 1;
+        }
+        var createNum = 0;
+        for(var i = 0;i<showData.length;++i){
+            // cc.log("showData =",JSON.stringify(showData));
+            if(showData[i].currentState == 1){
+                this.tableInGameNum += 1;
+            }
+            var item = this.tableIdCfg[showData[i].tableId];
+            if(!item) {
+                item = this.unUseItemArr.shift();
+            }
+            if(!item){
+                var item = this.tableItem.clone();
+                this.tableArr.push(item);
+                this.tableScroll.addChild(item);
+                createNum++;
+            }
+
+            var tempX = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/4;
+
+            item.x = 75 + (Math.floor((showNum)%4)*(450 + tempX));
+            item.y = contentH - 390 - (Math.floor(showNum / 4))*360;
+            showNum++;
+
+            var btn_table = item.getChildByName("btn_table")
+            if(btn_table) btn_table.joinType = 1;//牌桌列表进入
+            this.setTableItemData(item,showData[i]);
+
+            showNum++;
+
+            // if(createNum >= 40){
+            //     break;
+            // }
+
+        }
+        var page = Math.ceil(showNum/8);
+        if(this.curShowPage > page){
+            this.curShowPage = page;
+        }
+
+        if (this.tableScroll.getInnerContainerSize().height != contentH) {
+            var pos = this.tableScroll.getInnerContainerPosition();
+            this.tableScroll.setInnerContainerSize(cc.size(this.tableScroll.width, contentH));
+            pos.y = Math.max(this.tableScroll.height - contentH, pos.y);
+            this.tableScroll.setInnerContainerPosition(pos);
+        }
+
+        if (this.firstInitTableData && page >= 1){
+            this.tableScroll.jumpToTop();
+            this.firstInitTableData = false;
+        }
+
+        // this.updateTableInGameNum();
+    },
+
     updateTableList:function(data){
         // cc.log("============updateTableList==============" + data.length);
         cc.log("============updateTableList==============", JSON.stringify(data));
@@ -1888,8 +1986,11 @@ var PyqHall = BasePopup.extend({
             }
         }
         var page = Math.ceil((showData.length+1) / 8);
-
-        // this.itemCreateNew.y = contentH - 240;
+        var contentH = this.tableScroll.height;
+        if (page != 0){
+            var contentH = this.tableScroll.height * page;
+        }
+        this.itemCreateNew.y = contentH - 240;
         var showNum = 0;
         if(ClickClubModel.isClubCreaterOrLeader()){
             showNum = 1;
@@ -1913,14 +2014,15 @@ var PyqHall = BasePopup.extend({
 
             var tempX = (cc.winSize.width - SyConfig.DESIGN_WIDTH)/4;
 
-            item.x = 75 + (Math.floor((showNum)/2)*(450 + tempX));
-            item.y = 370 - ((showNum)%2)*360;
+            // item.x = 75 + (Math.floor((showNum)/2)*(450 + tempX));
+            // item.y = 370 - ((showNum)%2)*360;
+            item.x = 75 + (Math.floor((showNum)%4)*(450 + tempX));
+            item.y = contentH - 390 - (Math.floor(showNum / 4))*360;
+            showNum++;
 
             var btn_table = item.getChildByName("btn_table")
             if(btn_table) btn_table.joinType = 1;//牌桌列表进入
             this.setTableItemData(item,showData[i]);
-
-            showNum++;
 
             // if(createNum >= 40){
             //     break;
@@ -1928,25 +2030,23 @@ var PyqHall = BasePopup.extend({
 
         }
         var page = Math.ceil(showNum/8);
-
         if(this.curShowPage > page){
             this.curShowPage = page;
         }
 
-        var contentW = this.tableScroll.width*page;
-        if(this.tableScroll.getInnerContainerSize().width != contentW){
+        if (this.tableScroll.getInnerContainerSize().height != contentH) {
             var pos = this.tableScroll.getInnerContainerPosition();
-            this.tableScroll.setInnerContainerSize(cc.size(contentW,this.tableScroll.height));
-            pos.x = Math.max(this.tableScroll.width - contentW,pos.x);
+            this.tableScroll.setInnerContainerSize(cc.size(this.tableScroll.width, contentH));
+            pos.y = Math.max(this.tableScroll.height - contentH, pos.y);
             this.tableScroll.setInnerContainerPosition(pos);
-
-            //if(page > 1){
-                //var percent = (this.curShowPage - 1)/(page-1)*100;
-                //this.tableScroll.jumpToPercentHorizontal(percent);
-            //}
         }
 
-        // this.updateTableInGameNum();
+        if (this.firstInitTableData && page >= 1){
+            this.tableScroll.jumpToTop();
+            this.firstInitTableData = false;
+        }
+
+        this.updateTableInGameNum();
     },
 
     setTableItemData:function(item,data){
