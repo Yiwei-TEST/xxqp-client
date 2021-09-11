@@ -171,6 +171,8 @@ var CreditScoreDetailItem = ccui.Widget.extend({
             strLabel = "洗牌分";
         } else if (data.type == 6) {
             strLabel = "零钱包";
+        }else if (data.type == 7) {
+            strLabel = "中奖分";
         }
         this.labelType.setString(strLabel);
         this.timeLabel.setString(this.formatTime(data.createdTime));

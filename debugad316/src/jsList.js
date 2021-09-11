@@ -126,6 +126,7 @@ var jsList = [
     "src/bjdClub/ClubPhzRecallDetailPop.js",
     "src/bjdClub/ClubRoomDetailPop.js",
     "src/bjdClub/ClubInvitePop.js",
+    "src/bjdClub/ClubZhuanPanPop.js",
     "src/bjdClub/ClubTeamPop.js",
     "src/bjdClub/ClubCreateTeamPop.js",
     "src/bjdClub/ClubTeamItem.js",

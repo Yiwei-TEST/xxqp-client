@@ -531,6 +531,14 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
         this.addChild(this.gmButton);
         UITools.addClickEvent(this.gmButton, this, this.onGmButton);
         this.addCustomEvent(SyEvent.PHZ_REFRESH_GM_DATA, this, this.refreshGmData)
+
+
+        this.paomadeng = new PaoMaDeng();
+        this.root.addChild(this.paomadeng, 99999);
+        this.paomadeng.anchorX = this.paomadeng.anchorY = 0;
+        this.paomadeng.updatePosition(10, 900);
+        this.paomadeng.visible = false
+
     },
     //显示听牌内容
     onGmButton: function () {
@@ -1866,6 +1874,20 @@ var PHZRoom = BaseLayer.extend({ //BaseLayer BaseRoom
             if(this._timedt>=180){
                 this._timedt = 0;
                 this.calcWifi();
+            }
+        }
+
+        if(!this.paomadeng.playing){
+            if(PaoMaDengModel.isHasMsg()){
+                var curMsg = PaoMaDengModel.getCurrentMsg();
+                if(!curMsg){
+                    this.paomadeng.stop();
+                }else{
+                    if(PaoMaDengModel.isHasSpecialMsg()){
+                        this.paomadeng.play(curMsg);
+                        PaoMaDengModel.removeSpecialMsg()
+                    }
+                }
             }
         }
     },

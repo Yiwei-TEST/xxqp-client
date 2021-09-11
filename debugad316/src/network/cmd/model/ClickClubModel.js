@@ -46,6 +46,7 @@ var ClickClubModel = {
     cdtlj_kjzs:0,//配置的常德拖拉机开局桌数
     fzb_hide:0,//防作弊显示屏蔽
     forbiddenKickOut:0,//踢出限制
+    creditWheel:0,//开启转盘
 
     clearClubData:function(){
         this.clickClubObj = null;
@@ -96,6 +97,7 @@ var ClickClubModel = {
         this.cdtlj_kjzs = 0;
         this.fzb_hide = 0;
         this.forbiddenKickOut = 0;
+        this.creditWheel =0;
     },
 
     init:function(data){
@@ -204,6 +206,9 @@ var ClickClubModel = {
         }
         if(extMsg.privateRoom){
             this.privateRoom = extMsg.privateRoom;
+        }
+        if(extMsg.creditWheel){
+            this.creditWheel = extMsg.creditWheel;
         }
         if(extMsg.cdtuolaji){
             this.cdtlj_kjzs = extMsg.cdtuolaji;

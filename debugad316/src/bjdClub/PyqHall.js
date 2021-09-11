@@ -323,6 +323,10 @@ var PyqHall = BasePopup.extend({
         this.btn_suo = this.getWidget("btn_suo");
         UITools.addClickEvent(this.btn_suo,this,this.onClickSuoBtn);
 
+
+        this.btn_zhuanpan = this.getWidget("Button_zhuanpan");
+
+        UITools.addClickEvent(this.btn_zhuanpan,this,this.onClickZhuanpan);
         UITools.addClickEvent(this.btn_more_club,this,this.onClickMoreClub);
 
         UITools.addClickEvent(this.btn_wanfa,this,this.onClickWanfa);
@@ -367,6 +371,10 @@ var PyqHall = BasePopup.extend({
             cc.log("=======PyqHall=======EVENT_HIDE=======");
             self.isBackForward = false;
         });
+
+        UITools.addClickEvent(this.getWidget("wanfa_close"),this,function () {
+            self.getWidget("Image_wfbtn").visible = false;
+        })
     },
 
     addTableNumSetItem:function(){
@@ -523,6 +531,16 @@ var PyqHall = BasePopup.extend({
                 if (sy.scene._msgData){
                     this.paomadeng.play(sy.scene._msgData);
                 }
+            }else if(PaoMaDengModel.isHasMsg()){
+                    var curMsg = PaoMaDengModel.getCurrentMsg();
+					if(!curMsg){
+						
+					}else{
+						if(PaoMaDengModel.isHasSpecialMsg()){
+							this.paomadeng.play(curMsg);
+                            PaoMaDengModel.removeSpecialMsg()
+						}
+					}
             }else{
                 var gongGao = ClickClubModel.getClubGongGao();
                 if(gongGao){
@@ -1158,6 +1176,7 @@ var PyqHall = BasePopup.extend({
         if(showIdx >= 5){
             clubScroll.scrollToPercentVertical((showIdx + 1)/clubDataList.length*100,0.1,false);
         }
+
     },
 
     showIcon: function (imgNode,iconUrl, sex) {
@@ -1230,6 +1249,7 @@ var PyqHall = BasePopup.extend({
             });
         }
 
+    
         // setTimeout(function(){
         //     this.checkShowBindPop();
         // }.bind(this),10);
@@ -1323,6 +1343,10 @@ var PyqHall = BasePopup.extend({
         this.btn_lingqian.visible = ClickClubModel.isClubCreater() || ClickClubModel.getCurClubRole() == 10000;
         this.btn_wanfa.visible = ClickClubModel.isClubCreaterOrLeader();
         this.itemCreateNew.visible = ClickClubModel.isClubCreaterOrLeader();
+        if(ClickClubModel.isClubLeader()){
+            this.btn_zhanji.setVisible(false);
+            this.btn_tongji.setVisible(false);
+        }
         // if (ClickClubModel.isClubCreaterOrLeader()) {
         //     this.itemCreateNew.visible = true;
         // }
@@ -1346,6 +1370,8 @@ var PyqHall = BasePopup.extend({
             startX-= spaceX;
         }
         
+        this.btn_zhuanpan.visible = ClickClubModel.creditWheel >0 ;
+
     },
 
     onUpdateCredit:function(event){
@@ -1543,7 +1569,7 @@ var PyqHall = BasePopup.extend({
         // }
     },
     showWanfaBtnList:function () {
-        cc.log("this.allBagsData",this.allBagsData.length);
+        // cc.log("this.allBagsData",this.allBagsData.length);
         var btn_list_view = this.getWidget("wanfabtn_view");
         btn_list_view.setDirection(ccui.ScrollView.DIR_VERTICAL);
         btn_list_view.setTouchEnabled(true);
@@ -1551,7 +1577,7 @@ var PyqHall = BasePopup.extend({
         btn_list_view.setVisible(true);
         // btn_list_view.removeAllItems();
         if(this.allBagsData.length > 12){
-            btn_list_view.setInnerContainerSize(cc.size(875, ((this.allBagsData.length / 3)+1) * 120)); 
+            btn_list_view.setInnerContainerSize(cc.size(1435, ((this.allBagsData.length / 4)+1) * 120*1.2)); 
         }
         this.filterItemArr = [];
         var btn_item = this.btn_item =this.getWidget("button_allgames");
@@ -1571,9 +1597,9 @@ var PyqHall = BasePopup.extend({
             var item = btn_item.clone();
             item.setVisible(true);
             this.filterItemArr.push(item);
-            item.x = 130 + ((i)%3) * (275 + 30);
-            item.y = btn_list_view.getInnerContainerSize().height - 70 - (Math.floor((i)/3) *120);
-
+            item.x = 175 + ((i)%4) * (275 + 30) * 1.2;
+            item.y = btn_list_view.getInnerContainerSize().height - 70 - (Math.floor((i)/4) *120*1.2);
+            item.scale = 1.2;
             // btn_list_view.pushBackCustomItem(item);
             btn_list_view.addChild(item);
             var label_bag_name = ccui.helper.seekWidgetByName(item, "label_tableName");
@@ -1716,6 +1742,10 @@ var PyqHall = BasePopup.extend({
     onClickShezhi:function(){
         var pop = new PyqSet(1);
         PopupManager.addPopup(pop);
+    },
+
+    onClickZhuanpan:function(){
+        PopupManager.addPopup(new ClubZhuanPanPop());
     },
 
     onClickTongji:function(){

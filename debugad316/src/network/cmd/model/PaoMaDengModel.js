@@ -19,6 +19,14 @@ var PaoMaDengModel = {
 		return (this.urgentMsgs.length>0 && this.urgentMsgs[0].played==0);
 	},
 
+	isHasSpecialMsg:function(){
+		return (this.specialMsgs.length>0 && this.specialMsgs[0].played==0);
+	},
+	
+	removeSpecialMsg:function () {
+		this.specialMsgs = [];
+	},
+
 	isPlayImportMsg:function(){
 		for(var i=0;i<this.impMsgs.length;i++){
 			var msg = this.impMsgs[i];

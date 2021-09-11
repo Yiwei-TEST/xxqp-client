@@ -265,6 +265,13 @@ var HZMJRoom = BaseRoom.extend({
         ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjButtonAni/btmjting/btmjting.ExportJson");
         ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjActionAni/mjshandian/mjshandian.ExportJson");
         ccs.armatureDataManager.addArmatureFileInfo("res/bjdani/YLCMjActionAni/mjpengpai/mjpengpai.ExportJson");
+
+
+        this.paomadeng = new PaoMaDeng();
+        this.root.addChild(this.paomadeng, 99999);
+        this.paomadeng.anchorX = this.paomadeng.anchorY = 0;
+        this.paomadeng.updatePosition(10, 900);
+        this.paomadeng.visible = false
     },
     onClickTingBtn:function(sender,type){
         if(type == ccui.Widget.TOUCH_BEGAN){
@@ -1591,6 +1598,20 @@ var HZMJRoom = BaseRoom.extend({
         this.onCheckHuByPutOut();
         if(this.isTingPai) {
             this.onCheckHuByBaoTing();
+        }
+
+        if(!this.paomadeng.playing){
+            if(PaoMaDengModel.isHasMsg()){
+                var curMsg = PaoMaDengModel.getCurrentMsg();
+                if(!curMsg){
+                    this.paomadeng.stop();
+                }else{
+                    if(PaoMaDengModel.isHasSpecialMsg()){
+                        this.paomadeng.play(curMsg);
+                        PaoMaDengModel.removeSpecialMsg()
+                    }
+                }
+            }
         }
     },
 

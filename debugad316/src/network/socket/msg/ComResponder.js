@@ -561,7 +561,8 @@ var ComResponder = BaseResponder.extend({
 				break;
 			case 19://即时通讯
 				//if(message.strParams[0]){
-				//	PaoMaDengModel.init(JSON.parse(message.strParams[0]));
+					cc.log("code 19 =",JSON.stringify(message));
+					PaoMaDengModel.init(JSON.parse(message.strParams[0]));
 				//}
 				break;
 			case 20://比赛场等待界面

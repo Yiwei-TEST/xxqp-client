@@ -328,6 +328,12 @@ var CSMJRoom = BaseRoom.extend({
         this.Button_ting.visible = false;
         this.getWidget("Button_52").y += 50;
         this.removeHuPanel();//清除听牌层
+
+        this.paomadeng = new PaoMaDeng();
+        this.root.addChild(this.paomadeng, 99999);
+        this.paomadeng.anchorX = this.paomadeng.anchorY = 0;
+        this.paomadeng.updatePosition(10, 900);
+        this.paomadeng.visible = false
     },
 
     newUpdateFace:function(){//宽屏适配
@@ -2217,6 +2223,19 @@ var CSMJRoom = BaseRoom.extend({
         this.onCheckHuByPutOut();
         if(this.isTingPai) {
             this.onCheckHuByBaoTing();
+        }
+        if(!this.paomadeng.playing){
+            if(PaoMaDengModel.isHasMsg()){
+                var curMsg = PaoMaDengModel.getCurrentMsg();
+                if(!curMsg){
+                    this.paomadeng.stop();
+                }else{
+                    if(PaoMaDengModel.isHasSpecialMsg()){
+                        this.paomadeng.play(curMsg);
+                        PaoMaDengModel.removeSpecialMsg()
+                    }
+                }
+            }
         }
     },
 

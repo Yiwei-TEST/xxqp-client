@@ -247,6 +247,12 @@ var ZZMJRoom = BaseRoom.extend({
             actionNode.setPosition(mPanel.x,mPanel.y);
             this.actionNodeArr.push(actionNode);
         }
+
+        this.paomadeng = new PaoMaDeng();
+        this.root.addChild(this.paomadeng, 99999);
+        this.paomadeng.anchorX = this.paomadeng.anchorY = 0;
+        this.paomadeng.updatePosition(10, 900);
+        this.paomadeng.visible = false
     },
 
     onClickTingBtn:function(sender,type){
@@ -1395,6 +1401,20 @@ var ZZMJRoom = BaseRoom.extend({
         this.onCheckHuByPutOut();
         if(this.isTingPai) {
             this.onCheckHuByBaoTing();
+        }
+
+        if(!this.paomadeng.playing){
+            if(PaoMaDengModel.isHasMsg()){
+                var curMsg = PaoMaDengModel.getCurrentMsg();
+                if(!curMsg){
+                    this.paomadeng.stop();
+                }else{
+                    if(PaoMaDengModel.isHasSpecialMsg()){
+                        this.paomadeng.play(curMsg);
+                        PaoMaDengModel.removeSpecialMsg()
+                    }
+                }
+            }
         }
     },
 

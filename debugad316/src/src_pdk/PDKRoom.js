@@ -630,6 +630,13 @@ var PDKRoom = BaseRoom.extend({//Room
 		UITools.addClickEvent(this.Button_p5f,this,this.onPiaoFen);
 		UITools.addClickEvent(this.Button_p8f,this,this.onPiaoFen);
 
+
+		this.paomadeng = new PaoMaDeng();
+        this.root.addChild(this.paomadeng, 99999);
+        this.paomadeng.anchorX = this.paomadeng.anchorY = 0;
+        this.paomadeng.updatePosition(10, 900);
+        this.paomadeng.visible = false
+
 	},
 
 	onPiaoFen:function(obj){
@@ -2210,6 +2217,20 @@ var PDKRoom = BaseRoom.extend({//Room
 				this.calcWifi();
 			}
 		}
+
+		if(!this.paomadeng.playing){
+            if(PaoMaDengModel.isHasMsg()){
+                var curMsg = PaoMaDengModel.getCurrentMsg();
+                if(!curMsg){
+                    this.paomadeng.stop();
+                }else{
+                    if(PaoMaDengModel.isHasSpecialMsg()){
+                        this.paomadeng.play(curMsg);
+						PaoMaDengModel.removeSpecialMsg()
+                    }
+                }
+            }
+        }
 	}
 
 });
